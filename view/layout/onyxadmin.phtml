@@ -1,5 +1,5 @@
 <?php echo $this->doctype(); ?>
-<html lang="en">
+<html lang="en" ng-app="OnyxAdmin" class="no-js">
     <head>
         <meta charset="utf-8">
         <?php echo $this->headTitle('Onyx System'); ?>
@@ -8,40 +8,27 @@
             ->appendName('viewport', 'width=device-width, initial-scale=1.0')
             ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
         ?>
-
+        
         <!-- Le styles -->
         <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
-                        ->prependStylesheet($this->basePath() . '/css/style.css')
+                        ->prependStylesheet($this->basePath() . '/vendor/paul-headington/OnyxAdmin/css/OnyxAdmin.css')
                         ->prependStylesheet('//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css')
-                        ->prependStylesheet('//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css') ?>
-
+                        ->prependStylesheet('//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css') 
+                        ; ?>
+        
         <!-- Scripts -->
         <?php echo $this->headScript()
             ->prependFile('//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js')
-            ->prependFile('//code.jquery.com/ui/1.10.4/jquery-ui.js') 
-            ->prependFile('//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js')
             ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
             ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
         ; ?>
+        
 
     </head>
-    <body>
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">System Message</h4>
-              </div>
-              <div class="modal-body">
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
+    <body>  
+          <!--[if lt IE 7]>
+                <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+            <![endif]-->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
@@ -50,27 +37,34 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath('img/zf2-logo.png') ?>" alt="Zend Framework 2"/>&nbsp;Onyx System</a>
+                    <a class="navbar-brand" href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath('vendor/paul-headington/OnyxAdmin/img/colenso_logo.png') ?>" alt="Colenso BBDO" width="138px"/>&nbsp;Onyx Admin</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="/">Website Home</a></li>
-                        <li><a href="<?php echo $this->url('system') ?>">System</a></li>
-                        <li><a href="<?php echo $this->url('db-models') ?>">Database Models</a></li>
-                        <li><a href="<?php echo $this->url('modules') ?>">Modules</a></li>
-                        <li><a href="<?php echo $this->url('acl') ?>">Acl</a></li>
-                        <li><a href="<?php echo $this->url('rest-api') ?>">Rest API</a></li>
+                        <li class="active"><a href="#/home">Home</a></li>
+                        <li><a href="#/prize">Prizes</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
         </nav>
-        <div class="container">
+        <div class="container"  ng-view>            
             <?php echo $this->content; ?>
             <hr>
             <footer>
                 <p>&copy; 2009 - <?php echo date('Y') ?> Paul Headington. <?php echo $this->translate('All rights reserved.') ?></p>
             </footer>
         </div> <!-- /container -->
-        <?php echo $this->inlineScript() ?>
+        <?php echo $this->inlineScript()
+                ->prependFile('/vendor/paul-headington/OnyxAdmin/components/version/interpolate-filter.js')
+                ->prependFile('/vendor/paul-headington/OnyxAdmin/components/version/version-directive.js')
+                ->prependFile('/vendor/paul-headington/OnyxAdmin/components/version/version.js')
+                ->prependFile('/vendor/paul-headington/OnyxAdmin/view2/view2.js')
+                ->prependFile('/vendor/paul-headington/OnyxAdmin/view1/view1.js')
+                ->prependFile('/vendor/paul-headington/OnyxAdmin/OnyxAdmin.js')
+                ->prependFile('/vendor/paul-headington/OnyxAdmin/bower_components/angular-route/angular-route.js')
+                ->prependFile('/vendor/paul-headington/OnyxAdmin/bower_components/angular/angular.js')
+                // use this in production
+                //->prependFile('//ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js')                      
+                ;?>        
     </body>
 </html>
