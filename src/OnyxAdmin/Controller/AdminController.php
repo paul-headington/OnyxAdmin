@@ -11,7 +11,7 @@ class AdminController extends AbstractActionController
 {
     protected $eventIdentifier = 'Onyx\Service\EventManger';
     
-    public function onDispatch( \Zend\Mvc\MvcEvent $e ){
+    public function onDispatch( \Zend\Mvc\MvcEvent $e ){        
         $this->layout('layout/onyxadmin');
         return parent::onDispatch($e);
     }
